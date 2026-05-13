@@ -979,7 +979,7 @@ let pending = null;
 let activeEventTenantId = null;
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
-(function(){
+try { (function(){
   loadCfg(); renderHist(); updateStats(); addDefCC();
   renderTenants(); renderRiskSummary(); renderQueue(); updateDLStatus();
   const z=document.getElementById('upzone');
@@ -994,7 +994,7 @@ let activeEventTenantId = null;
   setTimeout(initDLConnection, 100);
   // Eviction init — runs after eviction JS is defined (end of script)
   setTimeout(()=>{renderEvictions();checkDay12Auto();setInterval(()=>{checkDay12Auto();renderEvictions();},60000);},100);
-})();
+})(); } catch(e){ document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:red;font-size:14px;"><strong>JS ERROR ON LOAD:</strong><br>' + e.message + '<br>' + e.stack + '</div>'; }
 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(id){
